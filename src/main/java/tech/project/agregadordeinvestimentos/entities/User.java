@@ -31,12 +31,12 @@ public class User {
   }
 
   public User(Instant updateTimestamp, Instant creationTimestamp, String password, String email, String username, UUID id) {
-    this.updateTimestamp = updateTimestamp;
-    this.creationTimestamp = creationTimestamp;
-    this.password = password;
-    this.email = email;
-    this.username = username;
     this.id = id;
+    this.username = username;
+    this.email = email;
+    this.password = password;
+    this.creationTimestamp = creationTimestamp;
+    this.updateTimestamp = updateTimestamp;
   }
 
   public UUID getId() {

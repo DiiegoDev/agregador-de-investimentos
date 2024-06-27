@@ -2,6 +2,7 @@ package tech.project.agregadordeinvestimentos.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tech.project.agregadordeinvestimentos.dtos.CreateUserDTO;
 import tech.project.agregadordeinvestimentos.entities.User;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.UUID;
 public class UserController {
 
   @PostMapping
-  public ResponseEntity<User> create(@RequestBody User user) {
+  public ResponseEntity<User> create(@RequestBody CreateUserDTO user) {
     return null;
   }
 
