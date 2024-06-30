@@ -9,9 +9,11 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.project.agregadordeinvestimentos.dtos.CreateUserDTO;
 import tech.project.agregadordeinvestimentos.entities.User;
+import tech.project.agregadordeinvestimentos.exceptions.user.EmailAlreadyExistsException;
 import tech.project.agregadordeinvestimentos.repositories.UserRespository;
 
 import java.time.Instant;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,7 +30,7 @@ class UserServiceTest {
 
   @Test
   @DisplayName("Should return a user id when a user is successfully created")
-  void shouldReturnUserId() {
+  void shouldCreateAUserAndReturnUserId() {
     //Arrange
     var id = UUID.randomUUID();
 
@@ -41,7 +43,6 @@ class UserServiceTest {
       null
     );
 
-    Mockito.doReturn(user).when(userRespository).save(any());
 
     var input = new CreateUserDTO(
       "Diego",
@@ -49,12 +50,41 @@ class UserServiceTest {
       "password"
     );
 
+    Mockito.doReturn(user).when(userRespository).save(any());
     //Act
     var output = userService.createUser(input);
 
     //Assert
     assertNotNull(output);
     assertEquals(id, output);
+  }
+
+  @Test
+  @DisplayName("Should throw an error if email already exists")
+  public void shouldThrowAnError() {
+    //Arrange
+    var id = UUID.randomUUID();
+
+    var user = new User(
+      id,
+      "Diego",
+      "diego@dev.com",
+      "password",
+      Instant.now(),
+      null
+    );
+
+    Mockito.doReturn(Optional.of(user)).when(userRespository).findUserByEmail("diego@dev.com");
+
+    var input = new CreateUserDTO(
+      "Diego",
+      "diego@dev.com",
+      "password"
+    );
+
+    //Assert
+    assertThrows(EmailAlreadyExistsException.class, () -> userService.createUser(input));
+
   }
 
 }
