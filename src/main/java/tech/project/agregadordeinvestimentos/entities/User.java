@@ -30,7 +30,7 @@ public class User {
   public User() {
   }
 
-  public User(UUID id, String username, String email, String password, Instant updateTimestamp, Instant creationTimestamp) {
+  public User(UUID id, String username, String email, String password,Instant creationTimestamp, Instant updateTimestamp) {
     this.id = id;
     this.username = username;
     this.email = email;

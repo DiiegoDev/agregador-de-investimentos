@@ -15,13 +15,13 @@ import java.util.UUID;
 
 @Service
 public class UserService {
-  private UserRespository userRespository;
+  private final UserRespository userRespository;
 
   public UserService(UserRespository userRespository) {
     this.userRespository = userRespository;
   }
 
-  public String createUser(CreateUserDTO data) {
+  public UUID createUser(CreateUserDTO data) {
 
     Optional<User> userEmail = userRespository.findUserByEmail(data.email());
 
@@ -40,7 +40,7 @@ public class UserService {
 
     var createdUser = userRespository.save(user);
 
-    return createdUser.getId().toString();
+    return createdUser.getId();
   }
 
   public List<User> findAll() {
