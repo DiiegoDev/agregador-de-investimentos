@@ -32,7 +32,7 @@ public class UserService {
     var user = new User(
       UUID.randomUUID(),
       data.username(),
-      data.email(),
+            data.email(),
       data.password(),
       Instant.now(),
       null
